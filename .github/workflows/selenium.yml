@@ -1,0 +1,33 @@
+name: Selenium Automation
+
+on:
+  push:
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Verify Java
+        run: java -version
+
+      - name: Verify Maven
+        run: mvn -version
+
+      - name: Install Dependencies
+        run: mvn clean install -DskipTests
+
+      - name: Run Selenium Tests
+        run: mvn test
