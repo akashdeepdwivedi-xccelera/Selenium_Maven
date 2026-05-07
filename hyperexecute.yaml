@@ -1,0 +1,22 @@
+version: 0.1
+
+runson: linux
+
+autosplit: true
+concurrency: 2
+
+framework:
+  name: selenium
+
+pre:
+  - mvn clean install -DskipTests
+
+testDiscovery:
+  type: raw
+  mode: dynamic
+  command: grep -lr "@Test" src/test/java
+
+testRunnerCommand: mvn test -Dtest=$test
+
+test:
+  - mvn test
